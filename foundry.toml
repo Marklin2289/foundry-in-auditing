@@ -9,5 +9,12 @@ libs = ["lib"]
 [fuzz]
 runs = 256
 
+[invariant]
+runs = 10000
+depth = 15
+fail_on_revert = false
+
+gas_reports = ["*"]
+
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
