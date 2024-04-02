@@ -11,6 +11,23 @@ contract LeetContract {
     uint256 private leet = 1337; // slot 0
 }
 
+contract CheatCode {
+    address public owner;
+
+    // constructor() {
+    //     owner = msg.sender;
+    // }
+
+    function withdraw() public view returns (bool s) {
+        if (msg.sender == owner) {
+            s = true;
+        } else {
+            s = false;
+            revert("You are not the owner");
+        }
+    }
+}
+
 contract CheatcodeTest is Test {
     LeetContract leetContract;
     MockERC20 dai;
@@ -41,5 +58,36 @@ contract CheatcodeTest is Test {
         console.log(dai.balanceOf(alice));
         console.log("address of dai :", address(dai));
         // log_uint256(address(dai).balanceOf(alice));
+    }
+
+    // function test_vmPrank() public {
+    //     address alice = makeAddr("alice");
+    //     vm.prank(alice);
+    //     emit log_address(alice);
+    //     CheatCode cheatCode = new CheatCode();
+    //     // cheatCode.withdraw();
+    //     emit log_address(address(cheatCode));
+    //     cheatCode.withdraw();
+    // }
+    // need to work on this
+}
+
+contract NumsContract {
+    uint256 public num1 = 100; // slot 0
+    uint256 public num2 = 200; // slot 1
+}
+
+contract NumsContractTest is Test {
+    NumsContract numsContract;
+
+    function setUp() public {
+        numsContract = new NumsContract();
+    }
+
+    function test_vmRecord() public {
+        vm.record();
+        numsContract.num2();
+        (bytes32[] memory reads, bytes32[] memory writes) = vm.accesses(address(numsContract));
+        emit log_uint(uint256(reads[0])); // 1
     }
 }
