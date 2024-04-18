@@ -66,3 +66,17 @@ contract GlobalUsing {
 //         return arr.sum();
 //     }
 // }
+
+// ******************************************************************************
+// FILE: SomeMath.sol
+
+// import "./Math.sol";
+
+// contract SomeMath {
+//     function addNumbers(uint256 a, uint256 b) public pure returns (uint256) {
+//         // Using the library function directly on uint256 variables
+//         return a.add(b);
+//     }
+// }
+
+// *******************************************************************************
